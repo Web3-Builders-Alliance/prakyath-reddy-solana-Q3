@@ -1,0 +1,3 @@
+[submodule "WBA-pre-reqs"]
+	path = WBA-pre-reqs
+	url = https://github.com/PrakyathReddy/WBA-pre-reqs
