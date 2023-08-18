@@ -1,2 +1,4 @@
 pre-requisites/airdrop/node_modules
 pre-requisites/airdrop/dev-wallet.json
+*wallet.json
+pre-requisites/airdrop/enroll.ts

@@ -1,6 +1,7 @@
 Creating a Fungible Token
 
-- spl_init.ts
+spl_init.ts
+
 - Create a new token mint
 - Make your WBA devnet wallet the mint authority
 - Set Decimals to 6 o console log the mint id
