@@ -1,3 +1,6 @@
 [submodule "WBA-pre-reqs"]
 	path = WBA-pre-reqs
 	url = https://github.com/PrakyathReddy/WBA-pre-reqs
+[submodule "create_fungible_token"]
+	path = create_fungible_token
+	url = https://github.com/PrakyathReddy/create_fungible_token.git
