@@ -37,5 +37,4 @@ const MY_WALLET_SECRET_KEY = process.env.MY_WALLET_SECRET_KEY!;
 // Call the asynchronous function
 createTokenMint(MY_WALLET_SECRET_KEY).catch((error) => {
   console.error("Failed to create token mint:", error);
-}); 
-
+});
