@@ -4,7 +4,7 @@ spl_init.ts
 
 - Create a new token mint
 - Make your WBA devnet wallet the mint authority
-- Set Decimals to 6 o console log the mint id
+- Set Decimals to 6 to console log the mint id
 
 spl_mint.ts
 
