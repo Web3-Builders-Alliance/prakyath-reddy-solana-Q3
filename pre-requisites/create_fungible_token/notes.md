@@ -14,4 +14,7 @@ metadata typescript library: @metaplex-foundation/mpl-token-metadata
 for challenge 2, we are not actually creating an NFT, we're going to be creating a fungible token that has metadata associated with it.
 Docs for createMetadataAccountV2Instructions - https://docs.metaplex.com/programs/token-metadata/instructions#create-a-metadata-account
 
-WBA Vault: https://explorer.solana.com/address/D51uEDHLbWAxNfodfQDv7qkp8WZtxrhi3uganGbNos7o/anchor-program?cluster=devnet
+WBA Vault: https://explorer.solana.com/address/D51uEDHLbWAxNfodfQDv7qkp8WZtxrhi3uganGbNos7o/anchor-program?cluster=
+
+Jeff's solana address: BvhV49WPYBbzPu8Fpy8YnPnwhNWLbm9Vmdj2T5bNSotS
+My solana address: 7sCXq3U28U2R9XNtnzfXCXUhLidRdfsgwt6gtFytRL33
