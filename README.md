@@ -13,7 +13,7 @@ https://explorer.solana.com/tx/41HcmhpjSsZPzczw5j18RtvK1jUmg9h2uN8QxCHJfJL1JHVtC
   spl-token supply 4RKW1u4XXgQJd3PB8VYmHTarkmL1GT58TDSSak76uVnN: 10
 ```
 
-**✅ challenge 2** 
+** challenge 2** 
 
 added metadata for the token account
 
