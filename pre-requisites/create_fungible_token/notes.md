@@ -24,3 +24,5 @@ when u create wba_vault.ts, anchor should be able to load that IDL and you'll be
 vault_init tx hash: https://explorer.solana.com/tx/57htmra1k9L9FzfZdpNeHSZtQkgADDzUgT7zpdk3wi1o9N8j7kTAtw3E8x433rkayPrxpZ57kcX7unbRU3AyyC3k?cluster=devnet
 
 vault state: 8oJB65i8gDMwMWTgk2mozdkeF2bMFQLSv6LcG4npAU5A - if you go to Anchor Data on solscan for this address, it shows the state data for your vault
+
+vault_deposit: https://explorer.solana.com/tx/5opmto2wVdcgenM59GK5mQ4JV2uM8aGRyfQRkUa5yhrAgM8cNvq3wrmsaBZkujEfXdRFpV38D42Qcre4zX6GA3hr?cluster=devnet
