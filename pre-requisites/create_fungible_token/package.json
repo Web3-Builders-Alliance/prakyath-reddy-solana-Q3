@@ -2,5 +2,9 @@
   "name": "create_fungible_token",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "spl_init": "ts-node ./spl_init.ts",
+    "spl_metadata": "ts-node ./spl_metadata.ts"
+  }
 }

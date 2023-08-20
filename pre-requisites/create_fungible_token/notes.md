@@ -10,3 +10,8 @@ spl-token supply 4RKW1u4XXgQJd3PB8VYmHTarkmL1GT58TDSSak76uVnN: 10
 JSON token standards - https://docs.metaplex.com/programs/token-metadata/token-standard
 metadata program id: metagbxxUerda28ci1RbAWKYOm3vbzib6a8bt518×1s
 metadata typescript library: @metaplex-foundation/mpl-token-metadata
+
+for challenge 2, we are not actually creating an NFT, we're going to be creating a fungible token that has metadata associated with it.
+Docs for createMetadataAccountV2Instructions - https://docs.metaplex.com/programs/token-metadata/instructions#create-a-metadata-account
+
+WBA Vault: https://explorer.solana.com/address/D51uEDHLbWAxNfodfQDv7qkp8WZtxrhi3uganGbNos7o/anchor-program?cluster=devnet

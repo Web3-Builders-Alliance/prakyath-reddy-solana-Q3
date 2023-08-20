@@ -26,3 +26,13 @@ spl_transfer.ts
 
 - Transfer tokens to another cadet.
 - use getOrCreateAssociatedTokenAccount to get the token accounts
+
+**Challenge 3:**
+
+- Load the IDL for the WBA Vault vault_init.ts
+- Initialize an Account with WBA Vault vault_deposit.ts
+- Deposit native Solana vault_withdraw.ts
+- Withdraw native Solana vault_deposit_spl.ts
+- Deposit your SPL token vault_withdraw_spl.ts
+- Withdraw SPL token
+- Each successful interaction increases your WBA Score.
