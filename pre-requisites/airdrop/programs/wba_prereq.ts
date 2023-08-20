@@ -1,6 +1,6 @@
 export type WbaPrereq = {
   version: "0.1.0";
-  name: "wba_prereq";
+  name: "wba_prereq"; 
   instructions: [
     {
       name: "complete";

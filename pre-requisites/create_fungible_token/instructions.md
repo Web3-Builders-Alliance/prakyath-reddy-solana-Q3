@@ -29,10 +29,10 @@ spl_transfer.ts
 
 **Challenge 3:**
 
-- Load the IDL for the WBA Vault vault_init.ts
-- Initialize an Account with WBA Vault vault_deposit.ts
-- Deposit native Solana vault_withdraw.ts
-- Withdraw native Solana vault_deposit_spl.ts
-- Deposit your SPL token vault_withdraw_spl.ts
-- Withdraw SPL token
+- Load the IDL for the WBA Vault
+- vault_init.ts - Initialize an Account with WBA Vault
+- vault_deposit.ts - Deposit native Solana
+- vault_withdraw.ts - Withdraw native Solana
+- vault_deposit_spl.ts - Deposit your SPL token
+- vault_withdraw_spl.ts - Withdraw SPL token
 - Each successful interaction increases your WBA Score.

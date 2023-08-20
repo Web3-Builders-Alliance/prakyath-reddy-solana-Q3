@@ -14,7 +14,13 @@ metadata typescript library: @metaplex-foundation/mpl-token-metadata
 for challenge 2, we are not actually creating an NFT, we're going to be creating a fungible token that has metadata associated with it.
 Docs for createMetadataAccountV2Instructions - https://docs.metaplex.com/programs/token-metadata/instructions#create-a-metadata-account
 
-WBA Vault: https://explorer.solana.com/address/D51uEDHLbWAxNfodfQDv7qkp8WZtxrhi3uganGbNos7o/anchor-program?cluster=
-
 Jeff's solana address: BvhV49WPYBbzPu8Fpy8YnPnwhNWLbm9Vmdj2T5bNSotS
 My solana address: 7sCXq3U28U2R9XNtnzfXCXUhLidRdfsgwt6gtFytRL33
+
+IDL Vault: https://explorer.solana.com/address/D51uEDHLbWAxNfodfQDv7qkp8WZtxrhi3uganGbNos7o?cluster=devnet
+
+when u create wba_vault.ts, anchor should be able to load that IDL and you'll be able to use the methods from the typescript library.
+
+vault_init tx hash: https://explorer.solana.com/tx/57htmra1k9L9FzfZdpNeHSZtQkgADDzUgT7zpdk3wi1o9N8j7kTAtw3E8x433rkayPrxpZ57kcX7unbRU3AyyC3k?cluster=devnet
+
+vault state: 8oJB65i8gDMwMWTgk2mozdkeF2bMFQLSv6LcG4npAU5A - if you go to Anchor Data on solscan for this address, it shows the state data for your vault
