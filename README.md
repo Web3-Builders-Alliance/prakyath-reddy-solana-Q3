@@ -13,8 +13,9 @@ https://explorer.solana.com/tx/41HcmhpjSsZPzczw5j18RtvK1jUmg9h2uN8QxCHJfJL1JHVtC
   spl-token supply 4RKW1u4XXgQJd3PB8VYmHTarkmL1GT58TDSSak76uVnN: 10
 ```
 
-** challenge 2** 
+**✅ challenge 2**
 
 added metadata for the token account
 
-![image](https://github.com/Web3-Builders-Alliance/prakyath-reddy-solana-Q3/assets/40018628/fadb757d-972e-479e-a57b-7de7f7e15a2e)
+<img src="https://github.com/Web3-Builders-Alliance/prakyath-reddy-solana-Q3/assets/40018628/fadb757d-972e-479e-a57b-7de7f7e15a2e" width="500" height="300" />
+<img src="https://github.com/Web3-Builders-Alliance/prakyath-reddy-solana-Q3/assets/40018628/5a938f65-06eb-4391-a100-77644074bedf" width="500" height="300" />
