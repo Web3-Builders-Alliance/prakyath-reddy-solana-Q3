@@ -21,8 +21,9 @@ added metadata for the token account
 <img src="https://github.com/Web3-Builders-Alliance/prakyath-reddy-solana-Q3/assets/40018628/5a938f65-06eb-4391-a100-77644074bedf" width="500" height="300" />
 
 **✅ challenge 3**
-
+```
  Loaded the IDL for the WBA Vault. 
  Initialized an Account with WBA Vault
  Deposited and withdrew native Solana.
  Deposited and withdrew your SPL token
+```
