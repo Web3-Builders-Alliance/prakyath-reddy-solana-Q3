@@ -1,5 +1,5 @@
-pre-requisites/airdrop/node_modules
-pre-requisites/airdrop/dev-wallet.json
+cluster_1/airdrop/node_modules
+cluster_1/airdrop/dev-wallet.json
 *wallet.json
-pre-requisites/airdrop/enroll.ts
-pre-requisites/create_fungible_token/.env
+cluster_1/airdrop/enroll.ts
+cluster_1/create_fungible_token/.env
