@@ -34,3 +34,6 @@ If u try to put the arweave link directly into metaplex as the URI, instead of d
 Find the Non-Fungible Standard JSON example in this link - https://docs.metaplex.com/programs/token-metadata/token-standard
 
 metadata URI from nft_metadata program - https://arweave.net/Yez33kPt361DVhy3kN1BilaK6DaEs7dNks0LnP9bHB4
+
+Success! Check out your NFT here:
+https://explorer.solana.com/address/7XKj4rnUgKCkTadBGfRVb4EhrVz3NmkL1Y7XnzDnNokU?cluster=devnet
