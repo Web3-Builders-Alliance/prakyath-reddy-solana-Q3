@@ -26,3 +26,5 @@ vault_init tx hash: https://explorer.solana.com/tx/57htmra1k9L9FzfZdpNeHSZtQkgAD
 vault state: 8oJB65i8gDMwMWTgk2mozdkeF2bMFQLSv6LcG4npAU5A - if you go to Anchor Data on solscan for this address, it shows the state data for your vault
 
 vault_deposit: https://explorer.solana.com/tx/5opmto2wVdcgenM59GK5mQ4JV2uM8aGRyfQRkUa5yhrAgM8cNvq3wrmsaBZkujEfXdRFpV38D42Qcre4zX6GA3hr?cluster=devnet
+
+rug image uploaded to arveave when nft_image program is run - https://arweave.net/qVGj2SKyPDuayi8g-HX2IO2N8aCDGNQLUFqUdbMvtig

@@ -3,3 +3,4 @@ cluster_1/airdrop/dev-wallet.json
 *wallet.json
 cluster_1/airdrop/enroll.ts
 cluster_1/create_fungible_token/.env
+cluster_1/create_fungible_token/node_modules
