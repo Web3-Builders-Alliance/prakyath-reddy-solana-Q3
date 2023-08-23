@@ -31,13 +31,33 @@ const metaplex = Metaplex.make(connection)
 
 (async () => {
   try {
-    // read the image file
-    const img = await readFile("./images/rug.png");
-    const metaplexImg = toMetaplexFile(img, "1.png");
-    const imgUri = await metaplex.storage().upload(metaplexImg);
+    const { uri: metadataUri } = await metaplex.nfts().uploadMetadata({
+      name: "my rug",
+      description: "We're not the same bro",
+      image: "https://arweave.net/qVGj2SKyPDuayi8g-HX2IO2N8aCDGNQLUFqUdbMvtig",
+      attributes: [
+        {
+          trait_type: "background",
+          value: "blue",
+        },
+        {
+          trait_type: "pattern",
+          value: "dots",
+        },
+      ],
+      properties: {
+        files: [
+          {
+            uri: "https://arweave.net/qVGj2SKyPDuayi8g-HX2IO2N8aCDGNQLUFqUdbMvtig",
+            type: "image/png",
+          },
+        ],
+        category: "image",
+      },
+    });
 
     console.log(
-      `You've uploaded your image:\n\n${imgUri}\n\nSave this URI so you can use it to mint an NFT!`
+      `You've uploaded your image:\n\n${metadataUri}\n\nSave this URI so you can use it to mint an NFT!`
     );
   } catch (error) {
     console.log(`Oops, something went wrong: ${error}`);

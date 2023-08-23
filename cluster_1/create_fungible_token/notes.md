@@ -28,3 +28,9 @@ vault state: 8oJB65i8gDMwMWTgk2mozdkeF2bMFQLSv6LcG4npAU5A - if you go to Anchor 
 vault_deposit: https://explorer.solana.com/tx/5opmto2wVdcgenM59GK5mQ4JV2uM8aGRyfQRkUa5yhrAgM8cNvq3wrmsaBZkujEfXdRFpV38D42Qcre4zX6GA3hr?cluster=devnet
 
 rug image uploaded to arveave when nft_image program is run - https://arweave.net/qVGj2SKyPDuayi8g-HX2IO2N8aCDGNQLUFqUdbMvtig
+
+If u try to put the arweave link directly into metaplex as the URI, instead of doing the metadata JSON file, it won't show up
+
+Find the Non-Fungible Standard JSON example in this link - https://docs.metaplex.com/programs/token-metadata/token-standard
+
+metadata URI from nft_metadata program - https://arweave.net/Yez33kPt361DVhy3kN1BilaK6DaEs7dNks0LnP9bHB4
