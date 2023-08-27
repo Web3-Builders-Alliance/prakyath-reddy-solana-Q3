@@ -40,12 +40,24 @@ spl_transfer.ts
 **Challenge 4:**
 
 - nft image.ts
+
   - Generate and upload rug image to Bundlr
   - https://deanmlittle.github.io/generug/
 
 - nft_metadata.ts
+
   - Using the metaplex JSON standard upload NFT Metadata to Bundlr
   - https://docs.metaplex.com/programs/token-metadata/token-standard#the-non-fungible-standard
 
 - nft_mint.ts
   - use metaplex.nfts().create to mint an NFT using your uploaded metadata
+
+**Challenge 5:**
+
+- Create a new project by running anchor init wba_vault
+- We are going to add 3 instructions,
+  - Initialize
+  - Deposit
+  - Withdraw
+- Use wba_init.ts, wba_deposit.ts & wba_withdraw.ts to test the contract
+- Run anchor test to build, deploy to localnet and run tests located in the test folder.
