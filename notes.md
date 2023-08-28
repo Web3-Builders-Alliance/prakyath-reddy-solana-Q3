@@ -37,3 +37,7 @@ metadata URI from nft_metadata program - https://arweave.net/Yez33kPt361DVhy3kN1
 
 Success! Check out your NFT here:
 https://explorer.solana.com/address/7XKj4rnUgKCkTadBGfRVb4EhrVz3NmkL1Y7XnzDnNokU?cluster=devnet
+
+to mine a custom vanity key - solana-keygen grind --starts-with wba:1. And to actually make it an address, go to target/deploy and replace the private key with the new one. And paste the public key in Anchor.toml
+
+if unable to build anchor repo due to dependency issues, use this - https://github.com/belivenn/warriorspotion/blob/main/cargo.lock

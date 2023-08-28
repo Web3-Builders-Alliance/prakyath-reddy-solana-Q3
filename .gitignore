@@ -4,3 +4,11 @@ cluster_1/airdrop/dev-wallet.json
 cluster_1/airdrop/enroll.ts
 cluster_1/create_fungible_token/.env
 cluster_1/create_fungible_token/node_modules
+cluster_2/wbauEhzu1CGBTsbzW2VpFfKrsStuNDi7YMw3Uj5WBvf.json
+cluster_2/wba_vault/.anchor
+cluster_2/wba_vault/.DS_Store
+cluster_2/wba_vault/target
+cluster_2/wba_vault/**/*.rs.bk
+cluster_2/wba_vault/node_modules
+cluster_2/wba_vault/test-ledger
+cluster_2/wba_vault/.yarn
