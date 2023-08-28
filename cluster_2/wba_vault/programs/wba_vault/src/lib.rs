@@ -60,13 +60,15 @@ pub struct Initialize<'info> {
     // since we have to send lamports, we need to use a system program
     // also we want to keep tract of that bump seed of that PDA
     // so we are going to create an unchecked account now    
+/// CHECK: it's safe    
     #[account(mut)]
     owner: AccountInfo<'info>,
+/// CHECK: it's safe
     #[account(
         seeds=[b"auth", state.key().as_ref()], // replaced signer with state so we can inherit the public key of the state 
         bump,   
     )]     
-    /// CHECK: it's safe. not an issue.
+/// CHECK: it's safe
     auth: UncheckedAccount<'info>,
     // when we create an SPL token, when we are moving it around, we are going
     // to need an auth account, someone who can sign for it. It can be a public-private
