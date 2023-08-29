@@ -36,8 +36,8 @@ added metadata for the token account
 ```
 
 **✅ challenge 5**
-'''
+```
   Created a new anchro project - wba_vault, with 3 instructions:
   - initialize - deposit - withdraw
   User anchor test to build, deploy to localnet and run tests located in the tests folder
-'''
+```
