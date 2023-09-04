@@ -8,7 +8,7 @@ wba_vault = "wbauEhzu1CGBTsbzW2VpFfKrsStuNDi7YMw3Uj5WBvf"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "devnet"
 wallet = "/Users/praky/.config/solana/id.json"
 
 [scripts]
