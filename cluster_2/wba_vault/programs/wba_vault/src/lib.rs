@@ -1,193 +1,162 @@
 use anchor_lang::prelude::*;
 use anchor_lang::system_program::{transfer, Transfer};
+use anchor_spl::associated_token::AssociatedToken;
 use anchor_spl::token::{
     close_account as spl_close_account, transfer as spl_transfer, CloseAccount as SplCloseAccount,
     Mint, Token, TokenAccount, Transfer as SplTransfer,
 };
-// Transfer is for the function, transfer is the actual execution of the function
 
 declare_id!("wbauEhzu1CGBTsbzW2VpFfKrsStuNDi7YMw3Uj5WBvf");
 
 #[program]
 pub mod wba_vault {
-    use super::*;
 
+    use super::*;
     pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
+        ctx.accounts.state.state_bump = *ctx.bumps.get("state").unwrap();
         ctx.accounts.state.auth_bump = *ctx.bumps.get("auth").unwrap();
         ctx.accounts.state.vault_bump = *ctx.bumps.get("vault").unwrap();
-        ctx.accounts.state.state_bump = *ctx.bumps.get("state").unwrap();
         Ok(())
     }
 
     pub fn deposit(ctx: Context<Payment>, amount: u64) -> Result<()> {
-        let accounts = Transfer {
+        let ctx_accounts = Transfer {
             from: ctx.accounts.owner.to_account_info(),
             to: ctx.accounts.vault.to_account_info(),
         };
-
-        let cpi = CpiContext::new(ctx.accounts.system_program.to_account_info(), accounts);
-
+        let cpi = CpiContext::new(ctx.accounts.system_program.to_account_info(), ctx_accounts);
         transfer(cpi, amount)
     }
-
     pub fn withdraw(ctx: Context<Payment>, amount: u64) -> Result<()> {
-        let accounts = Transfer {
-            // this is system program transfer
-            from: ctx.accounts.vault.to_account_info(),
+        let ctx_accounts = Transfer {
             to: ctx.accounts.owner.to_account_info(),
+            from: ctx.accounts.vault.to_account_info(),
         };
-
-        let seeds = &[
+        let seeds: &[&[u8]; 3] = &[
             b"vault",
-            ctx.accounts.state.to_account_info().key.as_ref(),
+            ctx.accounts.owner.to_account_info().key.as_ref(),
             &[ctx.accounts.state.vault_bump],
         ];
-
-        let signer_seeds: &[&[&[u8]]; 1] = &[&seeds[..]];
-
+        let pda_signer: &[&[&[u8]]; 1] = &[&seeds[..]];
         let cpi = CpiContext::new_with_signer(
             ctx.accounts.system_program.to_account_info(),
-            accounts,
-            signer_seeds,
+            ctx_accounts,
+            pda_signer,
         );
-
         transfer(cpi, amount)
     }
 
-    pub fn deposit_spl(ctx: Context<DepositSPL>, amount: u64) -> Result<()> {
-        let accounts: Transfer<'_> = SPLTransfer {
-            // this is spl token transfer
+    pub fn spl_deposit(ctx: Context<SplDeposit>, amount: u64) -> Result<()> {
+        let ctx_accounts = SplTransfer {
             from: ctx.accounts.owner_ata.to_account_info(),
             to: ctx.accounts.vault.to_account_info(),
-            authority: ctx.accounts.owner.to_account_info(),
-        };
-
-        let cpi = CpiContext::new(ctx.accounts.token_program.to_account_info(), accounts);
-
-        spl_transfer(cpi, amount)
-    }
-
-    pub fn withdraw_spl(ctx: Context<WithdrawSPL>, amount: u64) -> Result<()> {
-        let accounts: Transfer<'_> = SPLTransfer {
-            from: ctx.accounts.vault.to_account_info(),
-            to: ctx.accounts.owner_ata.to_account_info(),
             authority: ctx.accounts.auth.to_account_info(),
         };
-        let seeds = &[
-            b"auth",
-            ctx.accounts.state.to_account_info().key.as_ref(),
-            &[ctx.accounts.state.auth_bump],
+        let cpi = CpiContext::new(ctx.accounts.token_program.to_account_info(), ctx_accounts);
+        spl_transfer(cpi, amount)
+    }
+    pub fn spl_withdraw(ctx: Context<SplWithdraw>, amount: u64) -> Result<()> {
+        let ctx_accounts = SplTransfer {
+            to: ctx.accounts.owner_ata.to_account_info(),
+            from: ctx.accounts.vault.to_account_info(),
+            authority: ctx.accounts.auth.to_account_info(),
+        };
+        let seeds: &[&[u8]; 3] = &[
+            b"vault",
+            ctx.accounts.owner.to_account_info().key.as_ref(),
+            &[ctx.accounts.state.vault_bump],
         ];
-        let signer_seeds = &[&seeds[..]];
+        let pda_signer: &[&[&[u8]]; 1] = &[&seeds[..]];
         let cpi = CpiContext::new_with_signer(
-            ctx.accounts.token_program.to_account_info(),
-            accounts,
-            signer_seeds,
+            ctx.accounts.system_program.to_account_info(),
+            ctx_accounts,
+            pda_signer,
         );
         spl_transfer(cpi, amount)
     }
 
-    pub fn close_vault(ctx: Context<CloseVault>) -> Result<()> {
+    pub fn close_account(ctx: Context<CloseAccount>) -> Result<()> {
         match ctx.accounts.vault.try_lamports() {
             Ok(amount) => {
-                let accounts = Transfer {
-                    from: ctx.accounts.vault.to_account_info(),
+                let ctx_accounts = Transfer {
                     to: ctx.accounts.owner.to_account_info(),
+                    from: ctx.accounts.vault.to_account_info(),
                 };
-
-                let seeds = &[
+                let seeds: &[&[u8]; 3] = &[
                     b"vault",
-                    ctx.accounts.state.to_account_info().key.as_ref(),
+                    ctx.accounts.owner.to_account_info().key.as_ref(),
                     &[ctx.accounts.state.vault_bump],
                 ];
-
-                let signer_seeds: &[&[&[u8]]; 1] = &[&seeds[..]];
-
+                let pda_signer: &[&[&[u8]]; 1] = &[&seeds[..]];
                 let cpi = CpiContext::new_with_signer(
                     ctx.accounts.system_program.to_account_info(),
-                    accounts,
-                    signer_seeds,
+                    ctx_accounts,
+                    pda_signer,
                 );
-
                 transfer(cpi, amount)?;
             }
             Err(_) => (),
         }
 
-        let seeds = &[
+        let seeds: &[&[u8]; 3] = &[
             b"auth",
             ctx.accounts.state.to_account_info().key.as_ref(),
             &[ctx.accounts.state.auth_bump],
         ];
-        let signer_seeds = &[&seeds[..]];
-
-        let close_account_spl = CloseAccount {
-            account: ctx.accounts.spl_vaults.to_account_info(),
-            destination: ctx.accounts.owner.to_account_info(),
-            authority: ctx.accounts.auth.to_account_info(),
-        };
-
+        let signer_seeds: &[&[&[u8]]; 1] = &[&seeds[..]];
         if ctx.accounts.spl_vault.amount > 0 {
-            let accounts = SPLTransfer {
-                from: ctx.accounts.vault.to_account_info(),
+            let ctx_accounts = SplTransfer {
                 to: ctx.accounts.owner_ata.to_account_info(),
+                from: ctx.accounts.spl_vault.to_account_info(),
                 authority: ctx.accounts.auth.to_account_info(),
             };
 
             let cpi = CpiContext::new_with_signer(
-                ctx.accounts.token_program.to_account_info(),
-                accounts,
+                ctx.accounts.system_program.to_account_info(),
+                ctx_accounts,
                 signer_seeds,
             );
-
             spl_transfer(cpi, ctx.accounts.spl_vault.amount.clone())?;
         }
 
+        let close_account_spl = SplCloseAccount {
+            account: ctx.accounts.spl_vault.to_account_info(),
+            destination: ctx.accounts.owner.to_account_info(),
+            authority: ctx.accounts.auth.to_account_info(),
+        };
         let cpi = CpiContext::new_with_signer(
             ctx.accounts.token_program.to_account_info(),
             close_account_spl,
             signer_seeds,
         );
-
         spl_close_account(cpi)
     }
 }
+
 #[derive(Accounts)]
 pub struct Initialize<'info> {
-    // here we are going to send some lamports to a PDA
-    // since we have to send lamports, we need to use a system program
-    // also we want to keep tract of that bump seed of that PDA
-    // so we are going to create an unchecked account now
-    /// CHECK: it's safe
     #[account(mut)]
-    owner: AccountInfo<'info>,
-    /// CHECK: it's safe
-    #[account(
-        seeds=[b"auth", state.key().as_ref()], // replaced signer with state so we can inherit the public key of the state
-        bump,
-    )]
-    /// CHECK: it's safe
-    auth: UncheckedAccount<'info>,
-    // when we create an SPL token, when we are moving it around, we are going
-    // to need an auth account, someone who can sign for it. It can be a public-private
-    // keypair, or it can be a PDA. We are going to use a PDA here.
-    #[account(
-        seeds=[b"vault", state.key().as_ref()],
-        bump,
-    )]
-    vault: SystemAccount<'info>,
-    // vault is where we are going to store the sol
-    system_program: Program<'info, System>,
+    owner: Signer<'info>,
     #[account(
         init,
         payer = owner,
-        space = VaultState::LEN, // 8 bytes for each u64
-        seeds=[b"state", owner.key.as_ref()],
+        space = VaultState::LEN,
+        seeds = [b"state", owner.key().as_ref()],
         bump,
     )]
     state: Account<'info, VaultState>,
-    // what it's saying is, make sure this account is owned by the program
-    // and make VaultState is what is contains
+    #[account(
+        seeds = [b"auth", state.key().as_ref()],
+        bump
+    )]
+    /// CHECK: This is safe
+    auth: UncheckedAccount<'info>,
+    #[account(
+        seeds = [b"vault", state.key().as_ref()],
+        bump
+    )]
+    vault: SystemAccount<'info>,
+    system_program: Program<'info, System>,
 }
 
 #[derive(Accounts)]
@@ -195,30 +164,41 @@ pub struct Payment<'info> {
     #[account(mut)]
     owner: Signer<'info>,
     #[account(
-        mut,
-        seeds=[b"vault", state.key().as_ref()],
-        bump = state.vault_bump,
-    )]
-    vault: SystemAccount<'info>,
-    #[account(
-        seeds=[b"state", owner.key.as_ref()],
+        seeds = [b"state", owner.key().as_ref()],
         bump = state.state_bump,
     )]
     state: Account<'info, VaultState>,
+    #[account(
+        mut,
+        seeds = [b"vault", state.key().as_ref()],
+        bump = state.vault_bump,
+    )]
+    vault: SystemAccount<'info>,
     system_program: Program<'info, System>,
 }
 
 #[derive(Accounts)]
-pub struct DepositSPL<'info> {
+pub struct SplDeposit<'info> {
     #[account(mut)]
     owner: Signer<'info>,
+    #[account(
+        seeds = [b"state", owner.key().as_ref()],
+        bump = state.state_bump,
+    )]
+    state: Account<'info, VaultState>,
     #[account(
         mut,
         associated_token::mint = mint,
         associated_token::authority = owner,
     )]
-    owner_ata: AccountInfo<'info, TokenAccount>,
+    owner_ata: Account<'info, TokenAccount>,
     mint: Account<'info, Mint>,
+    #[account(
+        seeds = [b"auth", state.key().as_ref()],
+        bump = state.auth_bump,
+    )]
+    /// CHECK: This is safe
+    auth: UncheckedAccount<'info>,
     #[account(
         init,
         payer = owner,
@@ -228,108 +208,97 @@ pub struct DepositSPL<'info> {
         bump
     )]
     vault: Account<'info, TokenAccount>,
-    #[account(
-        seeds=[b"auth", state.key().as_ref()], // replaced signer with state so we can inherit the public key of the state
-        bump = state.auth_bump,
-    )]
-    /// CHECK: it's safe
-    auth: UncheckedAccount<'info>,
-    #[account(
-        seeds=[b"state", owner.key.as_ref()],
-        bump = state.state_bump,
-    )]
-    state: Account<'info, VaultState>,
     token_program: Program<'info, Token>,
     associated_token_program: Program<'info, AssociatedToken>,
     system_program: Program<'info, System>,
 }
 
 #[derive(Accounts)]
-pub struct SPlWithdraw<'info> {
+pub struct SplWithdraw<'info> {
     #[account(mut)]
     owner: Signer<'info>,
     #[account(
-        mut,
-        associated_token::mint = mint,
-        associated_token::authority = owner,
-    )]
-    owner_ata: AccountInfo<'info, TokenAccount>,
-    mint: AccountInfo<'info, Mint>,
-    #[account(
-        mut,
-        token::mint = mint,
-        token::authority = auth,
-        seeds = [b"spl_vault", state.key().as_ref()],
-        bump
-    )]
-    vault: AccountInfo<'info, TokenAccount>,
-    #[account(
-        seeds=[b"auth", state.key().as_ref()], // replaced signer with state so we can inherit the public key of the state
-        bump = state.auth_bump,
-    )]
-    /// CHECK: it's safe
-    auth: UncheckedAccount<'info>,
-    #[account(
-        seeds=[b"state", owner.key.as_ref()],
+        seeds = [b"state", owner.key().as_ref()],
         bump = state.state_bump,
     )]
     state: Account<'info, VaultState>,
-    token_program: Program<'info, Token>,
-    associated_token_program: Program<'info, AssociatedToken>,
-    system_program: Program<'info, System>,
-}
-
-#[derive(Accounts)]
-pub struct CloseVault<'info> {
-    #[account(mut)]
-    owner: Signer<'info>,
     #[account(
         mut,
         associated_token::mint = mint,
         associated_token::authority = owner,
     )]
-    owner_ata: AccountInfo<'info, TokenAccount>,
+    owner_ata: Account<'info, TokenAccount>,
     mint: Account<'info, Mint>,
     #[account(
+        seeds = [b"auth", state.key().as_ref()],
+        bump = state.auth_bump,
+    )]
+    /// CHECK: This is safe
+    auth: UncheckedAccount<'info>,
+    #[account(
         mut,
         seeds = [b"spl_vault", state.key().as_ref()],
         token::mint = mint,
         token::authority = auth,
-        bump
+        bump,
+    )]
+    vault: Account<'info, TokenAccount>,
+    token_program: Program<'info, Token>,
+    associated_token_program: Program<'info, AssociatedToken>,
+    system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct CloseAccount<'info> {
+    #[account(mut)]
+    owner: Signer<'info>,
+    #[account(
+        mut,
+        close = owner,
+        seeds = [b"state", owner.key().as_ref()],
+        bump = state.state_bump,
+    )]
+    state: Account<'info, VaultState>,
+    #[account(
+        mut,
+        associated_token::mint = mint,
+        associated_token::authority = owner,
+    )]
+    owner_ata: Account<'info, TokenAccount>,
+    mint: Account<'info, Mint>,
+    #[account(
+        seeds = [b"auth", state.key().as_ref()],
+        bump = state.auth_bump,
+    )]
+    /// CHECK: This is safe
+    auth: UncheckedAccount<'info>,
+    #[account(
+        mut,
+        seeds = [b"spl_vault", state.key().as_ref()],
+        token::mint = mint,
+        token::authority = auth,
+        bump,
     )]
     spl_vault: Account<'info, TokenAccount>,
     #[account(
         mut,
-        seeds=[b"vault", state.key().as_ref()],
-        bump = state.vault_bump,
+        seeds = [b"vault", state.key().as_ref()],
+        bump
     )]
     vault: SystemAccount<'info>,
-    #[account(
-        seeds=[b"auth", state.key().as_ref()], // replaced signer with state so we can inherit the public key of the state
-        bump = state.auth_bump,
-    )]
-    /// CHECK: it's safe
-    auth: UncheckedAccount<'info>,
-    #[account(
-        mut,
-        close = owner,
-        seeds=[b"state", owner.key.as_ref()],
-        bump = state.state_bump,
-    )]
-    state: Account<'info, VaultState>,
     token_program: Program<'info, Token>,
     associated_token_program: Program<'info, AssociatedToken>,
     system_program: Program<'info, System>,
 }
 
-// we need a data account to store the bumps
 #[account]
+
 pub struct VaultState {
+    state_bump: u8,
     auth_bump: u8,
     vault_bump: u8,
-    state_bump: u8,
 }
 
 impl VaultState {
-    const LEN: usize = 8 + 3 * 1;
+    const LEN: usize = 8 + 1 * 3;
 }
