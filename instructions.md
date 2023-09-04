@@ -1,12 +1,12 @@
-Creating a Fungible Token
+Challenge
 
-spl_init.ts
-
-- Create a new token mint
-- Make your WBA devnet wallet the mint authority
-- Set Decimals to 6 to console log the mint id
-
-spl_mint.ts
-
-- use getOrCreateAssociatedTokenAccount to create a token account using your wallet and the mint id you logged...
-- use mintTo to mint token to your self
+- Inside of your wba_vault program
+- Add the instructions
+    - DepositSpl
+    - WithdrawSpl
+    - CloseVault
+- The close instruction should close the vault state account
+- Write the tests to test each instruction
+- You can also clone down the Explorer
+- https://github.com/solana-labs/explorer
+- Think about how you can add Escrow functionality to the Vault.
