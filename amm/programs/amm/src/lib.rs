@@ -29,7 +29,7 @@ pub mod amm {
     }
 
     pub fn deposit(
-        ctx.Context<Deposit>,
+        ctx: Context<Deposit>,
         amount: u64,
         max_x: u64,
         max_y: u64,

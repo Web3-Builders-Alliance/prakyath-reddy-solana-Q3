@@ -7,11 +7,11 @@ use anchor_spl::{
 use std::collections::BTreeMap;
 
 #[derive(Accounts)]
-#[instructions(seed: u64)]
+#[instruction(seed: u64)]
 pub struct Initialize<'info> {
     #[account(mut)]
     pub initializer: Signer<'info>,
-    pub mint_x: InterfaceAccount<'inof, Mint>,
+    pub mint_x: InterfaceAccount<'info, Mint>,
     pub mint_y: InterfaceAccount<'info, Mint>,
     #[account(
         init,
@@ -28,7 +28,7 @@ pub struct Initialize<'info> {
         associated_token::mint = mint_x,
         associated_token::authority = auth,
     )]
-    pub vault_x: INterfaceAccount<'info, TokenAccount>,
+    pub vault_x: InterfaceAccount<'info, TokenAccount>,
     #[account(
         init,
         payer = initializer,

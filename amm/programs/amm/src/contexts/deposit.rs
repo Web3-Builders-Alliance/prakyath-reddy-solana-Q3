@@ -28,14 +28,14 @@ pub struct Deposit<'info> {
         associated_token::mint = config.mint_x,
         associated_token::authority = auth,
     )]
-    pub vault_x: Box<INterfaceAccount<'info, TokenAccount>>,
+    pub vault_x: Box<InterfaceAccount<'info, TokenAccount>>,
     #[account(
         mut,
         associated_token::mint = config.mint_y,
         associated_token::authority = auth,
     )]
     pub vault_y: Box<InterfaceAccount<'info, TokenAccount>>,
-    #[aaccount(
+    #[account(
         mut,
         associated_token::mint = config.mint_x,
         associated_token::authority = user,
@@ -102,14 +102,14 @@ impl<'info> Deposit<'info> {
 
         // check for slippage
 
-        require!(x <= max_x && u <= max_y, AmmError::SlippageExceeded);
+        require!(x <= max_x && y <= max_y, AmmError::SlippageExceeded);
 
         self.deposit_tokens(true, x)?;
         self.deposit_tokens(false, y)?;
         self.mint_lp_tokens(amount)
     }
 
-    pub fn deposit_tokens(&self, is_x: bool, amount: u4) -> Result<()> {
+    pub fn deposit_tokens(&self, is_x: bool, amount: u64) -> Result<()> {
         let (from, to) = match is_x {
             true => (
                 self.user_x.to_account_info(),

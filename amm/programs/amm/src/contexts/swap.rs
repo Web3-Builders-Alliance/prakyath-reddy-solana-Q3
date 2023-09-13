@@ -1,10 +1,10 @@
 use crate::errors::AmmError;
 use crate::state::Config;
-use crate::{assert_non_zero, assert_not_expired, asser_not_locked};
+use crate::{assert_non_zero, assert_not_expired, assert_not_locked};
 use anchor_lang::prelude::*;
 use anchor_spl::{
     associated_token::AssociatedToken,
-    token_interface::{transfer_checked, Mint. TokenAccount, TokenInterface, Transfer},
+    token_interface::{transfer_checked, Mint, TokenAccount, TokenInterface, Transfer},
 };
 use constant_product_curve::{ConstantProduct, LiquidityPair};
 
@@ -97,7 +97,10 @@ impl<'info> Swap<'info> {
                 self.user_x.to_account_info(),
                 self.vault_x.to_account_info(),
             ),
-            false => (self.user_y.to_account_info(), self.vault_y.to_account_info()),
+            false => (
+                self.user_y.to_account_info(),
+                self.vault_y.to_account_info(),
+            ),
         };
 
         let accounts = Transfer {
@@ -135,7 +138,8 @@ impl<'info> Swap<'info> {
 
         let signer_seeds = &[&seeds[..]];
 
-        let ctx = Context::new_with_signer(self.token_program.to_account_info(), accounts, signer_seeds);
+        let ctx =
+            Context::new_with_signer(self.token_program.to_account_info(), accounts, signer_seeds);
 
         transfer_checked(ctx, amount, self.mint_y.decimals)
     }

@@ -12,3 +12,4 @@ cluster_2/wba_vault/**/*.rs.bk
 cluster_2/wba_vault/node_modules
 cluster_2/wba_vault/test-ledger
 cluster_2/wba_vault/.yarn
+test-ledger/*
