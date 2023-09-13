@@ -1,4 +1,4 @@
-use crate::errors:AmmError;
+use crate::errors::AmmError;
 use crate::state::Config;
 use crate::{assert_non_zero, assert_not_expired, asser_not_locked};
 use anchor_lang::prelude::*;
@@ -97,7 +97,7 @@ impl<'info> Swap<'info> {
                 self.user_x.to_account_info(),
                 self.vault_x.to_account_info(),
             ),
-            false => (self.user_y.to_account_info(), self.vault_y.to_account_info()),)
+            false => (self.user_y.to_account_info(), self.vault_y.to_account_info()),
         };
 
         let accounts = Transfer {
@@ -124,7 +124,7 @@ impl<'info> Swap<'info> {
         };
 
         let accounts = Transfer {
-            from.
+            from,
             to,
             authority: self.auth.to_account_info(),
         };
