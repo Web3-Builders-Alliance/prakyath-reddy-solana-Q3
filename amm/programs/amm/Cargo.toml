@@ -16,4 +16,6 @@ cpi = ["no-entrypoint"]
 default = []
 
 [dependencies]
-anchor-lang = "0.28.0"
+anchor-lang = {version = "0.28.0", features = ["init_if_needed"]}
+anchor-spl = "0.28.0"
+constant_product_curve = {git = "https://github.com/deanmlittle/constant-product-curve"}
